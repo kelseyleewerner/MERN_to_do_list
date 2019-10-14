@@ -1,5 +1,8 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import CreateToDo from "./components/create-todo";
+import EditToDo from "./components/edit-todo";
+import ToDoList from "./components/todo-list";
 import './App.css';
 
 class App extends Component<{}, {}> {
@@ -8,6 +11,9 @@ class App extends Component<{}, {}> {
       <Router>
         <div>
           <h2>To Do List</h2>
+          <Route path="/" exact component={ToDoList} />
+          <Route path="/edit/:id" component={EditToDo} />
+          <Route path="/create" component={CreateToDo} /> 
         </div>
       </Router>
     );
