@@ -10,7 +10,14 @@ class App extends Component<{}, {}> {
     return (
       <Router>
         <div>
-          <h2>To Do List</h2>
+          <ul>
+            <li>
+              <Link to="/">To Do List</Link>
+            </li>
+            <li>
+              <Link to="create">Create To Do</Link>
+            </li>
+          </ul>
           <Route path="/" exact component={ToDoList} />
           <Route path="/edit/:id" component={EditToDo} />
           <Route path="/create" component={CreateToDo} /> 
