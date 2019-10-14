@@ -1,6 +1,8 @@
 {
   "name": "mern_to_do_list",
   "version": "0.1.0",
+  "author": "Kelsey Werner",
+  "description": "Simple to do list app using the MERN stack plus TypeScript",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
