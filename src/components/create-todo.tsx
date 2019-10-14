@@ -5,13 +5,6 @@ type CreateToDoState = {
     todo_completed: boolean
 }
 
-// TODO: FINISH THIS!!! NEED TO INCLUDE FUNCTIONS
-interface ICreateToDo {
-    state: CreateToDoState,
-    onChangeToDoDescription(event:ChangeEvent<HTMLInputElement>): void,
-    onSubmit(event:FormEvent<HTMLFormElement>): void
-}
-
 export default class CreateToDo extends Component<any, CreateToDoState> {
     constructor(props: any) {
         super(props);
