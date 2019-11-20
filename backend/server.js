@@ -14,3 +14,10 @@ const connection = mongoose.connection;
 connection.once('open', () => console.log("MongoDB database connection established successfully"));
 
 app.listen(PORT, () => console.log("Server is running on Port: " + PORT));
+
+const todoRoutes = express.Router();
+app.use('/todos', todoRoutes);
+
+todoRoutes.route('/').get((req, res) => {
+    Todo.find((err, todos) => err ? console.log(err) : res.json(todos));
+});
