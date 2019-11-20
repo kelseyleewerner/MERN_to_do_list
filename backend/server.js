@@ -33,3 +33,18 @@ todoRoutes.route('/add').post((req, res) => {
         .then(todo => res.status(200).json({ 'todo': 'todo added successfully' }))
         .catch(err => res.status(400).send('adding new todo failed'));
 });
+
+todoRoutes.route('/update/:id').post((req, res) => {
+    Todo.findById(req.params.id, (err, todo) => {
+        if (!todo) {
+            res.status(404).send('cannot find todo with that ID');
+        } else {
+            todo.todo_description = req.body.todo_description;
+            todo.todo_completed = req.body.todo_completed;
+
+            todo.save()
+                .then(todo => res.json('Todo updated!'))
+                .catch(err => res.status(400).send('Update not possible'));
+        }
+    });
+});
