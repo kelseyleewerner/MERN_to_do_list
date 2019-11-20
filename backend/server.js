@@ -21,3 +21,8 @@ app.use('/todos', todoRoutes);
 todoRoutes.route('/').get((req, res) => {
     Todo.find((err, todos) => err ? console.log(err) : res.json(todos));
 });
+
+todoRoutes.route('/:id').get((req, res) => {
+    let id = req.params.id;
+    Todo.findById(id, (err, todo) => err ? console.log(err) : res.json(todo));
+});
