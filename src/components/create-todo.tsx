@@ -1,4 +1,5 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
+import axios from 'axios';
 
 type CreateToDoState = {
     todo_description: string,
@@ -25,9 +26,19 @@ export default class CreateToDo extends Component<any, CreateToDoState> {
 
     onSubmit(event:FormEvent<HTMLFormElement>): void {
         event.preventDefault();
-        const { todo_description } = this.state;
+        const { todo_description, todo_completed } = this.state;
 
+        console.log('FORM SUBMITTED');
         console.log(`FORM DESCRIPTION: ${todo_description}`);
+        console.log(`FORM COMPLETED: ${todo_completed}`);
+
+        const newTodo = {
+            todo_description,
+            todo_completed
+        }
+
+        axios.post('http://localhost:4000/todos/add', newTodo)
+             .then(res => console.log(res.data));
 
         this.setState({
             todo_description: '',
