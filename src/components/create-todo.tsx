@@ -1,12 +1,12 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 
-type CreateToDoState = {
+interface ICreateToDoState {
     todo_description: string,
     todo_completed: boolean
 }
 
-export default class CreateToDo extends Component<any, CreateToDoState> {
+export default class CreateToDo extends Component<any, ICreateToDoState> {
     constructor(props: any) {
         super(props);
 
