@@ -8,6 +8,7 @@ interface IToDoListState {
 
 interface IToDo {
     todo_description: string,
+    todo_completed: boolean,
     _id: number
 }
 
@@ -15,6 +16,8 @@ export default class ToDoList extends Component<{}, IToDoListState> {
     constructor(props:any) {
         super(props);
         this.state = { todos: [] }
+
+        this.todoList = this.todoList.bind(this);
     }
 
     componentDidMount() {
@@ -34,7 +37,7 @@ export default class ToDoList extends Component<{}, IToDoListState> {
         return (
             <div>
                 <h3>To Do List</h3>
-                <table style={{ marginTop: 20 }}>
+                <table>
                     <thead>
                         <tr>
                             <th>Description</th>

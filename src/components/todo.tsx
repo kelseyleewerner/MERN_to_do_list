@@ -7,6 +7,7 @@ interface IToDoProps {
 
 interface IToDo {
     todo_description: string,
+    todo_completed: boolean,
     _id: number
 }
 
@@ -14,7 +15,7 @@ const Todo: SFC<IToDoProps> = props => {
     const { todo } = props;
     return (
         <tr>
-            <td>{ todo.todo_description }</td>
+            <td className={ todo.todo_completed ? 'completed' : '' }>{ todo.todo_description }</td>
             <td>
                 <Link to={ "/edit/" + todo._id }>Edit</Link>
             </td>

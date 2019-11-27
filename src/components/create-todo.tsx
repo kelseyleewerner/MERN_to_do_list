@@ -14,6 +14,7 @@ export default class CreateToDo extends Component<any, ICreateToDoState> {
             todo_description: '',
             todo_completed: false
         }
+        
         this.onChangeToDoDescription = this.onChangeToDoDescription.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
