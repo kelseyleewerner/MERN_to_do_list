@@ -15,17 +15,17 @@ export default class CreateToDo extends Component<any, ICreateToDoState> {
             todo_completed: false
         }
         
-        this.onChangeToDoDescription = this.onChangeToDoDescription.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.onChangeTodoDescription = this.onChangeTodoDescription.bind(this);
+        this.onSubmitTodo = this.onSubmitTodo.bind(this);
     }
 
-    onChangeToDoDescription(event:ChangeEvent<HTMLInputElement>): void {
+    onChangeTodoDescription(event:ChangeEvent<HTMLInputElement>): void {
         this.setState({
             todo_description: event.target.value
         });
     }
 
-    onSubmit(event:FormEvent<HTMLFormElement>): void {
+    onSubmitTodo(event:FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         const { todo_description, todo_completed } = this.state;
 
@@ -52,13 +52,13 @@ export default class CreateToDo extends Component<any, ICreateToDoState> {
 
         return (
             <div>
-                <form onSubmit={this.onSubmit}>
+                <form onSubmit={this.onSubmitTodo}>
                     <div>
                         <label>Description: </label>
                         <input
                             type='text'
                             value={todo_description}
-                            onChange={this.onChangeToDoDescription}
+                            onChange={this.onChangeTodoDescription}
                         />
                     </div>
                     <div>

@@ -26,7 +26,7 @@ export default class ToDoList extends Component<{}, IToDoListState> {
              .catch(error => console.log(error))
     }
 
-    todoList() {
+    todoList():Array<JSX.Element> {
         const { todos } = this.state;
         return todos.map((currentTodo, i) => {
             return <Todo todo={currentTodo} key={i} />;
