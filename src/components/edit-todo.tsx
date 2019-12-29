@@ -51,7 +51,7 @@ export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> 
 
         axios.post('http://localhost:4000/todos/update/' + params.id, request)
             .then(response => console.log(response.data))
-        history.push('/');
+            .then(() => history.push('/'))
     }
 
     onChangeTodoDescription(event:ChangeEvent<HTMLInputElement>):void {

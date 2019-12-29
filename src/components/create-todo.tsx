@@ -43,14 +43,13 @@ export default class CreateToDo extends Component<ICreateToDoProps, ICreateToDoS
         console.log(`FORM DESCRIPTION: ${todo_description}`);
         console.log(`FORM COMPLETED: ${todo_completed}`);
 
-        axios.post('http://localhost:4000/todos/add', newTodo)
-            .then(response => console.log(response.data));
-
         this.setState({
             todo_description: '',
             todo_completed: false
         });
-        history.push('/');
+        axios.post('http://localhost:4000/todos/add', newTodo)
+            .then(response => console.log(response.data))
+            .then(() => history.push('/'))
     }
 
     render() {
