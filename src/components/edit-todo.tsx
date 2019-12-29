@@ -41,12 +41,12 @@ export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> 
 
     onSubmitTodo(event:FormEvent<HTMLFormElement>):void {
         event.preventDefault();
-
         const { match: { params }, history } = this.props;
         const request = {
             todo_description: this.state.todo_description,
             todo_completed: this.state.todo_completed
         };
+        
         console.log(request);
 
         axios.post('http://localhost:4000/todos/update/' + params.id, request)

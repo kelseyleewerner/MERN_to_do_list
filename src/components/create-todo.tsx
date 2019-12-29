@@ -1,4 +1,5 @@
 import React, { Component, ChangeEvent, FormEvent } from 'react';
+import { History } from 'history';
 import axios from 'axios';
 
 interface ICreateToDoState {
@@ -6,8 +7,12 @@ interface ICreateToDoState {
     todo_completed: boolean
 }
 
-export default class CreateToDo extends Component<any, ICreateToDoState> {
-    constructor(props: any) {
+interface ICreateToDoProps {
+    history: History
+}
+
+export default class CreateToDo extends Component<ICreateToDoProps, ICreateToDoState> {
+    constructor(props: ICreateToDoProps) {
         super(props);
 
         this.state = {
@@ -28,15 +33,15 @@ export default class CreateToDo extends Component<any, ICreateToDoState> {
     onSubmitTodo(event:FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         const { todo_description, todo_completed } = this.state;
-
-        console.log('FORM SUBMITTED');
-        console.log(`FORM DESCRIPTION: ${todo_description}`);
-        console.log(`FORM COMPLETED: ${todo_completed}`);
-
+        const { history } = this.props;
         const newTodo = {
             todo_description,
             todo_completed
         }
+
+        console.log('FORM SUBMITTED');
+        console.log(`FORM DESCRIPTION: ${todo_description}`);
+        console.log(`FORM COMPLETED: ${todo_completed}`);
 
         axios.post('http://localhost:4000/todos/add', newTodo)
             .then(response => console.log(response.data));
@@ -45,6 +50,7 @@ export default class CreateToDo extends Component<any, ICreateToDoState> {
             todo_description: '',
             todo_completed: false
         });
+        history.push('/');
     }
 
     render() {
