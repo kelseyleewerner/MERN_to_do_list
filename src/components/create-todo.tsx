@@ -39,7 +39,7 @@ export default class CreateToDo extends Component<any, ICreateToDoState> {
         }
 
         axios.post('http://localhost:4000/todos/add', newTodo)
-             .then(res => console.log(res.data));
+            .then(response => console.log(response.data));
 
         this.setState({
             todo_description: '',

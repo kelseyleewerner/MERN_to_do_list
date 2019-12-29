@@ -22,8 +22,8 @@ export default class ToDoList extends Component<{}, IToDoListState> {
 
     componentDidMount() {
         axios.get('http://localhost:4000/todos')
-             .then(response => this.setState({ todos: response.data }))
-             .catch(error => console.log(error))
+            .then(response => this.setState({ todos: response.data }))
+            .catch(error => console.log(error))
     }
 
     todoList():Array<JSX.Element> {

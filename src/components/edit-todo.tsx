@@ -1,5 +1,6 @@
 import React, { Component, FormEvent, ChangeEvent } from 'react';
-import { match } from 'react-router-dom';
+import { match }from 'react-router-dom';
+import { History } from 'history';
 import axios from 'axios';
 
 interface IEditToDoState {
@@ -8,7 +9,8 @@ interface IEditToDoState {
 }
 
 interface IEditToDoProps {
-    match: match<any>
+    match: match<any>,
+    history: History
 }
 
 export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> {
@@ -27,7 +29,7 @@ export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> 
     componentDidMount() {
         const { match: { params } } = this.props;
 
-        axios.get('http://localhost:4000/todos/', params.id)
+        axios.get('http://localhost:4000/todos/' + params.id)
             .then(response => {
                 this.setState({
                     todo_description: response.data.todo_description,
@@ -38,15 +40,30 @@ export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> 
     }
 
     onSubmitTodo(event:FormEvent<HTMLFormElement>):void {
-        // PENDING
+        event.preventDefault();
+
+        const { match: { params }, history } = this.props;
+        const request = {
+            todo_description: this.state.todo_description,
+            todo_completed: this.state.todo_completed
+        };
+        console.log(request);
+
+        axios.post('http://localhost:4000/todos/update/' + params.id, request)
+            .then(response => console.log(response.data))
+        history.push('/');
     }
 
     onChangeTodoDescription(event:ChangeEvent<HTMLInputElement>):void {
-        // PENDING
+        const { value } = event.target;
+
+        this.setState({ todo_description: value });
     }
 
     onChangeTodoCompleted(event:ChangeEvent<HTMLInputElement>):void {
-        // PENDING
+        const { todo_completed } = this.state;
+
+        this.setState({ todo_completed: !todo_completed });
     }
 
     render() {
@@ -71,7 +88,7 @@ export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> 
                             name="completedCheckbox"
                             onChange={ this.onChangeTodoCompleted }
                             checked={ todo_completed }
-                            value={ "${todo_completed}" }
+                            value={ `${todo_completed}` }
                         />
                         <label htmlFor="completedCheckbox">
                             Completed
