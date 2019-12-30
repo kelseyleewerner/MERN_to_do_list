@@ -47,6 +47,18 @@ todoRoutes.route('/update/:id').post((req, res) => {
     });
 });
 
+todoRoutes.route('/delete/:id').delete((req, res) => {
+    Todo.findById(req.params.id, (err, todo) => {
+        if (!todo) {
+            res.status(404).send('cannot find todo with that ID');
+        } else {
+            todo.remove()
+                .then(todo => res.status(200).json({ 'todo': 'todo removed successfully' }))
+                .catch(err => res.status(400).send('deleting todo failed'));
+        }
+    });
+});
+
 app.use('/todos', todoRoutes);
 
 app.listen(PORT, () => console.log("Server is running on Port: " + PORT));
