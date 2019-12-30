@@ -29,8 +29,25 @@ export default class ToDoList extends Component<{}, IToDoListState> {
     todoList():Array<JSX.Element> {
         const { todos } = this.state;
         return todos.map((currentTodo, i) => {
-            return <Todo todo={currentTodo} key={i} />;
+            return <Todo 
+                todo={currentTodo}
+                key={i}
+                deleteTodo={this.deleteTodo}
+            />;
         })
+    }
+
+    // TODO: add types
+    deleteTodo(todoId:any) {
+        console.log("TODO ID: ", todoId)
+
+        axios.delete('http://localhost:4000/todos/delete/' + todoId)
+            .then(response => console.log(response.data ))
+            // .then(() => axios.get('http://localhost:4000/todos')
+            //     .then(response => this.setState({ todos: response.data }))
+            //     .catch(error => console.log(error))
+            // )
+            .catch(error => console.log(error))
     }
 
     render() {
@@ -41,7 +58,7 @@ export default class ToDoList extends Component<{}, IToDoListState> {
                     <thead>
                         <tr>
                             <th>Description</th>
-                            <th>Action</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
