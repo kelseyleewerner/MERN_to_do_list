@@ -65,7 +65,10 @@ export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> 
     onChangeTodoDescription(event:ChangeEvent<HTMLInputElement>):void {
         const { value } = event.target;
 
-        this.setState({ todo_description: value });
+        this.setState({
+            todo_description: value,
+            is_description_empty: false
+        });
     }
 
     onChangeTodoCompleted(event:ChangeEvent<HTMLInputElement>):void {

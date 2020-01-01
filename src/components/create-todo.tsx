@@ -28,7 +28,8 @@ export default class CreateToDo extends Component<ICreateToDoProps, ICreateToDoS
 
     onChangeTodoDescription(event:ChangeEvent<HTMLInputElement>): void {
         this.setState({
-            todo_description: event.target.value
+            todo_description: event.target.value,
+            is_description_empty: false
         });
     }
 
