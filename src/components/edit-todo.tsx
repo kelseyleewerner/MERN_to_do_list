@@ -5,7 +5,8 @@ import axios from 'axios';
 
 interface IEditToDoState {
     todo_description: string,
-    todo_completed: boolean
+    todo_completed: boolean,
+    is_description_empty: boolean
 }
 
 interface IEditToDoProps {
@@ -19,7 +20,8 @@ export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> 
         
         this.state = {
             todo_description: '',
-            todo_completed: false
+            todo_completed: false,
+            is_description_empty: false
         }
         this.onSubmitTodo = this.onSubmitTodo.bind(this);
         this.onChangeTodoDescription = this.onChangeTodoDescription.bind(this);
@@ -42,11 +44,17 @@ export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> 
     onSubmitTodo(event:FormEvent<HTMLFormElement>):void {
         event.preventDefault();
         const { match: { params }, history } = this.props;
+        const { todo_description, todo_completed } = this.state;
+
+        if (todo_description === '') {
+            this.setState({ is_description_empty: true })
+            return
+        }
+
         const request = {
-            todo_description: this.state.todo_description,
-            todo_completed: this.state.todo_completed
+            todo_description,
+            todo_completed
         };
-        
         console.log(request);
 
         axios.post('http://localhost:4000/todos/update/' + params.id, request)
@@ -67,7 +75,7 @@ export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> 
     }
 
     render() {
-        const { todo_description, todo_completed } = this.state;
+        const { todo_description, todo_completed, is_description_empty } = this.state;
 
         return (
             <div>
@@ -79,7 +87,14 @@ export default class EditToDo extends Component<IEditToDoProps, IEditToDoState> 
                             type="text"
                             value={ todo_description }
                             onChange={ this.onChangeTodoDescription }
+                            className={ is_description_empty ? 'input-error' : '' }
                         />
+                        <p
+                            className='input-error-label'
+                            hidden={ is_description_empty ? false : true }
+                        >
+                            To do description is required
+                        </p>
                     </div>
                     <div>
                         <input
