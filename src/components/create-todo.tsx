@@ -4,7 +4,8 @@ import axios from 'axios';
 
 interface ICreateToDoState {
     todo_description: string,
-    todo_completed: boolean
+    todo_completed: boolean,
+    is_description_empty: boolean
 }
 
 interface ICreateToDoProps {
@@ -17,7 +18,8 @@ export default class CreateToDo extends Component<ICreateToDoProps, ICreateToDoS
 
         this.state = {
             todo_description: '',
-            todo_completed: false
+            todo_completed: false,
+            is_description_empty: false
         }
         
         this.onChangeTodoDescription = this.onChangeTodoDescription.bind(this);
@@ -34,11 +36,16 @@ export default class CreateToDo extends Component<ICreateToDoProps, ICreateToDoS
         event.preventDefault();
         const { todo_description, todo_completed } = this.state;
         const { history } = this.props;
+
+        if (todo_description === '') {
+            this.setState({ is_description_empty: true })
+            return
+        }
+
         const newTodo = {
             todo_description,
             todo_completed
         }
-
         console.log('FORM SUBMITTED');
         console.log(`FORM DESCRIPTION: ${todo_description}`);
         console.log(`FORM COMPLETED: ${todo_completed}`);
@@ -53,7 +60,7 @@ export default class CreateToDo extends Component<ICreateToDoProps, ICreateToDoS
     }
 
     render() {
-        const { todo_description } = this.state;
+        const { todo_description, is_description_empty } = this.state;
 
         return (
             <div>
@@ -64,7 +71,14 @@ export default class CreateToDo extends Component<ICreateToDoProps, ICreateToDoS
                             type='text'
                             value={todo_description}
                             onChange={this.onChangeTodoDescription}
+                            className={ is_description_empty ? 'input-error' : '' }
                         />
+                        <p
+                            className='input-error-label'
+                            hidden={ is_description_empty ? false : true }
+                        >
+                            To do description is required
+                        </p>
                     </div>
                     <div>
                         <input
