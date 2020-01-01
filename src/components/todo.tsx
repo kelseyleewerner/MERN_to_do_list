@@ -14,11 +14,6 @@ interface IToDo {
 
 const Todo: SFC<IToDoProps> = props => {
     const { todo, deleteTodo } = props;
-    // TODO: change function name
-    const blahFunction = () => {
-        deleteTodo(todo._id)
-            .then(history.push('/'))
-    }
 
     return (
         <tr>
@@ -27,7 +22,7 @@ const Todo: SFC<IToDoProps> = props => {
                 <Link to={ '/edit/' + todo._id }>Edit</Link>
                     /
                 <a 
-                    onClick={ blahFunction }
+                    onClick={ () => deleteTodo(todo._id) }
                     href="#"
                 >
                     Delete

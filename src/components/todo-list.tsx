@@ -18,6 +18,7 @@ export default class ToDoList extends Component<{}, IToDoListState> {
         this.state = { todos: [] }
 
         this.todoList = this.todoList.bind(this);
+        this.deleteTodo = this.deleteTodo.bind(this);
     }
 
     componentDidMount() {
@@ -37,16 +38,14 @@ export default class ToDoList extends Component<{}, IToDoListState> {
         })
     }
 
-    // TODO: add types
-    deleteTodo(todoId:any) {
-        console.log("TODO ID: ", todoId)
-
+    deleteTodo(todoId:number):void {
         axios.delete('http://localhost:4000/todos/delete/' + todoId)
             .then(response => console.log(response.data ))
-            // .then(() => axios.get('http://localhost:4000/todos')
-            //     .then(response => this.setState({ todos: response.data }))
-            //     .catch(error => console.log(error))
-            // )
+            .then(() => {
+                axios.get('http://localhost:4000/todos')
+                    .then(response => this.setState({ todos: response.data }))
+                    .catch(error => console.log(error))
+            })
             .catch(error => console.log(error))
     }
 
