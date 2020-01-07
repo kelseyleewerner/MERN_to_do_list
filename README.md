@@ -1,3 +1,5 @@
+This project uses the MERN stack to create a simple To Do list web app.  Users can create, edit, and delete To Dos.  To Dos include a description and a priority level.  To Dos can be sorted by priority level.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
